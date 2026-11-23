@@ -1,0 +1,42 @@
+---
+title: "Exercise"
+date: today
+author: Giona Silei
+output: html
+theme: default
+format:
+   html:
+     toc: TRUE
+     toc-title:       Contents
+     toc-location:    left
+     number-sections: TRUE
+     embed-resources: TRUE
+execute:
+  cache:    TRUE
+  output:   TRUE
+  echo:     TRUE
+  code-fold: TRUE
+---
+
+# Exercise using Sara_dataset.xls
+
+## Loading the the Sara_dataset.xls into R
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+```
+
+```{r}
+library(readxl)
+dataset <- read_excel("Sara_dataset.xls")
+
+glimpse(dataset)
+```
+
+## Describe the variables using descriptive statistics
+
+$n =$ `r nrow(dataset)`
+
+Self-reported fear of mathematics, (measured on a 0–10 scale) 
+$\bar{x} =$ `r mean(dataset$phobia)`
