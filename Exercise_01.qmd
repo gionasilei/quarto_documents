@@ -150,6 +150,6 @@ $r$\
 From the analysis we can conclude that in our sample the performance in a mathematical and a statistical test where negatively correlated with math anxiety (MA).\
 \
 This results are consistent with the current research on the topic: a meta-analysis conducted by Zang et al. @zangetal found a robust negative link between math anxiety and math performance.\
-Another study also found that countries with higher-than-average student math performance also tend to have lower-than-average student math anxiety [@foleyetal]
+Another study also found that countries with higher-than-average student math performance also tend to have lower-than-average student math anxiety [@foleyetal], as seen in @fig-1
 
-![**Fig. 1.** Country-level Program for International Student Assessment (PISA) math score in relation to country-level math anxiety. Adapted from “PISA 2012 Results: Ready to Learn: Students’ Engagement, Drive and Self-Beliefs (Vol. III),” by the Organization for Economic Co-operation and Development, 2013, p. 102. Copyright 2013 by the Organization for Economic Co-operation and Development. Adapted with permission. @foleyetal](countries.jpg){fig-align="center"}
+![**Fig. 1.** Country-level Program for International Student Assessment (PISA) math score in relation to country-level math anxiety. Adapted from “PISA 2012 Results: Ready to Learn: Students’ Engagement, Drive and Self-Beliefs (Vol. III),” by the Organization for Economic Co-operation and Development, 2013, p. 102. Copyright 2013 by the Organization for Economic Co-operation and Development. Adapted with permission. @foleyetal](countries.jpg){fig-align="center" #fig-1}
