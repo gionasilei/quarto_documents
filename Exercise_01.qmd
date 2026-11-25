@@ -13,7 +13,7 @@ format:
      smooth-scroll:   TRUE
      toc:             TRUE
      toc-title:       Contents
-     toc-location:    left
+     toc-location:    right
      number-sections: TRUE
      embed-resources: TRUE
 execute:
