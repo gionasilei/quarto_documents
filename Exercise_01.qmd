@@ -1,22 +1,25 @@
 ---
-title: "Exercises using Sara_dataset.xls"
+title: "Math anxiety (MA) and Math performance"
+description: "*Exercises using Sara_dataset.xls*"
 date: today
+title-block-banner: TRUE
 author: Giona Silei
 output: html
-theme: simplex
+theme: minty
 bibliography: "bibliography.bib"
 csl: "apa.csl"
 format:
    html:
-     toc: TRUE
+     smooth-scroll:   TRUE
+     toc:             TRUE
      toc-title:       Contents
      toc-location:    left
      number-sections: TRUE
      embed-resources: TRUE
 execute:
-  cache:    TRUE
-  output:   TRUE
-  echo:     TRUE
+  cache:     TRUE
+  output:    TRUE
+  echo:      TRUE
   code-fold: TRUE
 ---
 
@@ -31,9 +34,9 @@ rm(list=ls())
 ```{r}
 library(tidyverse)
 library(readxl)
+
 dataset <- read_excel("Sara_dataset.xls")
 
-print(dataset, n = 5)
 glimpse(dataset)
 ```
 
@@ -43,16 +46,16 @@ Sample size\
 $n =$ `r nrow(dataset)`
 
 Self-reported fear of mathematics (measured on a 0–10 scale)\
-$\bar{x} =$ `r round(mean(dataset$phobia), 2)` \ $s =$ `r round(sd(dataset$phobia), 2)`
+$\bar{x} =$ `r round(mean(dataset$phobia), 2)`  $s =$ `r round(sd(dataset$phobia), 2)`
 
 Number of mathematics courses previously attended\
-$\bar{x} =$ `r round(mean(dataset$prevmath), 2)` \ $s =$ `r round(sd(dataset$prevmath), 2)`
+$\bar{x} =$ `r round(mean(dataset$prevmath), 2)`  $s =$ `r round(sd(dataset$prevmath), 2)`
 
 Score on a mathematics pre-test (measured on a 0-50 scale)\
-$\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)` \ $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`
+$\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`
 
 Score on a statistics test(measured on a 0-10 scale)\
-$\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)` \ $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`
+$\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`
 
 # Analysing the variables
 
@@ -119,7 +122,7 @@ Self reported fear of mathematics and performance in the statistics pre-test are
 **Variable**\
 Self-reported fear of mathematics (0–10 scale)\
 Score on a [mathematics pre-test]{style="color: blue;"} (0-50 scale)\
-Score on a [statistics pre-test]{style="color: green;"} (0-10 scale)\
+Score on a [statistics pre-test]{style="color: red;"} (0-10 scale)\
 :::
 
 ::: {.column width="10%"}
@@ -149,4 +152,4 @@ From the analysis we can conclude that in our sample the performance in a mathem
 This results are consistent with the current research on the topic: a meta-analysis conducted by Zang et al. @zangetal found a robust negative link between math anxiety and math performance.\
 Another study also found that countries with higher-than-average student math performance also tend to have lower-than-average student math anxiety [@foleyetal]
 
-![**Fig. 1.** Country-level Program for International Student Assessment (PISA) math score in relation to country-level math anxiety. Adapted from “PISA 2012 Results: Ready to Learn: Students’ Engagement, Drive and Self-Beliefs (Vol. III),” by the Organization for Economic Co-operation and Development, 2013, p. 102. Copyright 2013 by the Organization for Economic Co-operation and Development. Adapted with permission.](countries.jpg){fig-align="center"}
+![**Fig. 1.** Country-level Program for International Student Assessment (PISA) math score in relation to country-level math anxiety. Adapted from “PISA 2012 Results: Ready to Learn: Students’ Engagement, Drive and Self-Beliefs (Vol. III),” by the Organization for Economic Co-operation and Development, 2013, p. 102. Copyright 2013 by the Organization for Economic Co-operation and Development. Adapted with permission. @foleyetal](countries.jpg){fig-align="center"}
