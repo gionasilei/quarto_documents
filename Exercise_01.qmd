@@ -45,16 +45,16 @@ glimpse(dataset)
 Sample size\
 $n =$ `r nrow(dataset)`
 
-Self-reported fear of mathematics (measured on a 0–10 scale)\
+Self-reported fear of mathematics (measured on a 0–10 scale) `phobia`\
 $\bar{x} =$ `r round(mean(dataset$phobia), 2)`  $s =$ `r round(sd(dataset$phobia), 2)`
 
-Number of mathematics courses previously attended\
+Number of mathematics courses previously attended `prevmath`\
 $\bar{x} =$ `r round(mean(dataset$prevmath), 2)`  $s =$ `r round(sd(dataset$prevmath), 2)`
 
-Score on a mathematics pre-test (measured on a 0-50 scale)\
+Score on a mathematics pre-test (measured on a 0-50 scale) `mathquiz`\
 $\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`
 
-Score on a statistics test(measured on a 0-10 scale)\
+Score on a statistics test(measured on a 0-10 scale) `statquiz`\
 $\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`
 
 # Analysing the variables
