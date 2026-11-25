@@ -3,7 +3,9 @@ title: "Exercises using Sara_dataset.xls"
 date: today
 author: Giona Silei
 output: html
-theme: default
+theme: simplex
+bibliography: "bibliography.bib"
+csl: "apa.csl"
 format:
    html:
      toc: TRUE
@@ -35,24 +37,26 @@ print(dataset, n = 5)
 glimpse(dataset)
 ```
 
-# Describe the variables using descriptive statistics
+# Taking a closer look at some of the variables
 
 Sample size\
 $n =$ `r nrow(dataset)`
 
 Self-reported fear of mathematics (measured on a 0–10 scale)\
-$\bar{x} =$ `r round(mean(dataset$phobia), 2)`   $s =$ `r round(sd(dataset$phobia), 2)`
+$\bar{x} =$ `r round(mean(dataset$phobia), 2)` \ $s =$ `r round(sd(dataset$phobia), 2)`
 
 Number of mathematics courses previously attended\
-$\bar{x} =$ `r round(mean(dataset$prevmath), 2)`   $s =$ `r round(sd(dataset$prevmath), 2)`
+$\bar{x} =$ `r round(mean(dataset$prevmath), 2)` \ $s =$ `r round(sd(dataset$prevmath), 2)`
 
 Score on a mathematics pre-test (measured on a 0-50 scale)\
-$\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)`   $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`
+$\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)` \ $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`
 
 Score on a statistics test(measured on a 0-10 scale)\
-$\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)`   $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`
+$\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)` \ $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`
 
-# Analyse two of the variables
+# Analysing the variables
+
+## Math pre-test
 
 ```{r}
 #| code-fold: TRUE
@@ -67,8 +71,7 @@ dataset |>
   geom_jitter() +
   geom_smooth(method = "lm", col = "red", se = FALSE) +
   labs(
-    title = "Fear of mathematics and math performance are negatively correlated 
-(r = -0.28)",
+    title = "Fear of mathematics and math pre-test performance",
     subtitle = "n = 100",
     x = "Self-reported fear of mathematics (0-10)",
     y = "Matemathics pre-test score (0-50)",
@@ -77,50 +80,73 @@ dataset |>
   theme(
     plot.title = element_text(face = "bold"),
   )
-
-round(cor(dataset$mathquiz, dataset$phobia, use = "complete.obs"), 2)
 ```
 
-# Inserting a two column section
+Self reported fear of mathematics and performance in the mathematics pre-test are negatively correlated ($r =$ `r round(cor(dataset$phobia, dataset$mathquiz, use = "complete.obs"), 2)`)
 
-::::: columns
-::: {.column width="75%"}
+## Statistics pre-test
+
+```{r}
+#| code-fold: TRUE
+#| warning: FALSE
+dataset |> 
+  ggplot(
+    aes(
+      x = phobia,
+      y = statquiz
+    )
+  ) +
+  geom_jitter() +
+  geom_smooth(method = "lm", col = "red", se = FALSE) +
+  labs(
+    title = "Fear of mathematics and statistics pre-test performance",
+    subtitle = "n = 100",
+    x = "Self-reported fear of mathematics (0-10)",
+    y = "Statistics pre-test score (0-10)",
+    caption = "data from Sara_dataset.xls"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold"),
+  )
+```
+
+Self reported fear of mathematics and performance in the statistics pre-test are negatively correlated ($r =$ `r round(cor(dataset$phobia, dataset$statquiz, use = "complete.obs"), 2)`)
+
+# Summarizing the results
+
+::::::: columns
+::: {.column width="70%"}
 **Variable**\
 Self-reported fear of mathematics (0–10 scale)\
-Number of mathematics courses previously attended\
-Score on a mathematics pre-test(0-50 scale)\
-Score on a statistics test(0-10 scale)\
-Self-measured heart rate under normal conditions\
-Self-measured heart rate before the test\
-Self-measured heart rate after the test\
-Scores on an anxiety test under normal conditions\
-Scores on an anxiety test before the test\
-Scores on an anxiety test after the test\
+Score on a [mathematics pre-test]{style="color: blue;"} (0-50 scale)\
+Score on a [statistics pre-test]{style="color: green;"} (0-10 scale)\
 :::
 
-::: {.column width="25%"}
+::: {.column width="10%"}
 $\bar{x}$\
-`r mean(dataset[,4])`\
-`r mean(dataset[,5])`\
-`r round(mean(dataset[,6], na.rm = TRUE), 2)`\
-`r mean(dataset[,7])`\
-`r mean(dataset[,8])`\
-`r mean(dataset[,9])`\
-`r mean(dataset[,10])`\
-`r mean(dataset[,11])`\
-`r mean(dataset[,12])`\
-`r mean(dataset[,13])`\
+`r round(mean(dataset$phobia), 2)`\
+`r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`\
+`r round(sd(dataset$statquiz, na.rm = TRUE), 2)`\
 :::
-:::::
 
-# Including a word of a different color
+::: {.column width="10%"}
+$s$\
+`r round(sd(dataset$phobia), 2)`\
+`r round(sd(dataset$mathquiz), 2)`\
+`r round(sd(dataset$statquiz), 2)`
+:::
 
-I want to make this word [blue]{style="color: blue;"}, [red]{style="color: red;"} or [green]{style="color: green;"}.
+::: {.column width="10%"}
+$r$\
+1\
+`r round(cor(dataset$phobia, dataset$mathquiz, use = "complete.obs"), 2)`\
+`r round(cor(dataset$phobia, dataset$statquiz, use = "complete.obs"), 2)`
+:::
+:::::::
 
-# Inserting an image
+From the analysis we can conclude that in our sample the performance in a mathematical and a statistical test where negatively correlated with math anxiety (MA).\
+\
+This results are consistent with the current research on the topic: a meta-analysis conducted by Zang et al. @zangetal found a robust negative link between math anxiety and math performance.\
+Another study also found that countries with higher-than-average student math performance also tend to have lower-than-average student math anxiety [@foleyetal]
 
-**Three-dimensional normal distribution**
-
-![](3D_normal.jpg){fig-align="center"}
-
-
+![**Fig. 1.** Country-level Program for International Student Assessment (PISA) math score in relation to country-level math anxiety. Adapted from “PISA 2012 Results: Ready to Learn: Students’ Engagement, Drive and Self-Beliefs (Vol. III),” by the Organization for Economic Co-operation and Development, 2013, p. 102. Copyright 2013 by the Organization for Economic Co-operation and Development. Adapted with permission.](countries.jpg){fig-align="center"}
