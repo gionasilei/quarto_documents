@@ -1,0 +1,223 @@
+---
+title: "Math anxiety (MA) <br>
+& Math performance"
+author: "Giona Silei"
+format:
+  revealjs:
+    code-line-numbers: false
+    auto-stretch: false
+    theme: default
+    slide-number: c/t
+    transition: slide
+    background-transition: fade
+    footer: "giona.silei@studenti.unipd.it"
+    logo: "images/arca.png"
+    incremental: false
+    self-contained: true
+    embed-resources: true
+    code-fold: false
+    code-summary: "Codice"
+    code-overflow: wrap
+    toc: true 
+    toc-title: "Index"
+    bibliography: bibliography.bib
+    csl: apa.csl
+    include-in-header:
+          - text: |
+              <style>
+              #title-slide .title {
+                font-size: em;
+                color: #9B0014;
+              }
+              .slide-logo {
+                height: 50px !important;
+                max-height: none !important;
+                position: absolute !important;
+                bottom: 0px !important;
+                right: 10px !important;
+                top: unset !important;
+                left: unset !important;
+              }
+              .reveal .slide aside .aside-footnotes {
+              font-size: 20px;
+              }
+              </style>
+              
+
+execute:
+  echo: true
+  output: true
+editor: source
+---
+
+
+
+## Importing the Sara_dataset.xls into R {transition="slide"}
+
+\
+
+```{r}
+#| echo: FALSE
+
+rm(list=ls())
+library(tidyverse)
+library(readxl)
+
+dataset <- read_excel("Sara_dataset.xls")
+```
+
+``` {.r code-line-numbers="1,2|4"}
+library(tidyverse)
+library(readxl)     
+
+dataset <- read_excel("Sara_dataset.xls")
+```
+
+\
+
+First lets load the needed packages.^[package `readxl` is loaded separately because it's not part of the core tidyverse.]
+
+\
+
+Then lets import the Sara_dataset into R using the `read_excel()` function.
+
+
+
+## {.unlisted}
+
+```{r}
+glimpse(dataset)
+```
+
+
+
+## Taking a closer look at some of the variables {transition="slide"}
+
+::: {style="font-size: .85em;"}
+[Sample size]{.fragment .highlight-current-red}\
+[$n =$ `r nrow(dataset)`]{.fragment .fade-left}
+
+[Self-reported fear of mathematics (measured on a 0–10 scale) `phobia`]{.fragment .highlight-current-red}\
+[$\bar{x} =$ `r round(mean(dataset$phobia), 2)`  $s =$ `r round(sd(dataset$phobia), 2)`]{.fragment .fade-left}
+
+[Number of mathematics courses previously attended `prevmath`]{.fragment .highlight-current-red}\
+[$\bar{x} =$ `r round(mean(dataset$prevmath), 2)`  $s =$ `r round(sd(dataset$prevmath), 2)`]{.fragment .fade-left}
+
+[Score on a mathematics pre-test (measured on a 0-50 scale) `mathquiz`]{.fragment .highlight-current-red}\
+[$\bar{x} =$ `r round(mean(dataset$mathquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`]{.fragment .fade-left}
+
+[Score on a statistics test(measured on a 0-10 scale) `statquiz`]{.fragment .highlight-current-red}\
+[$\bar{x} =$ `r round(mean(dataset$statquiz, na.rm = TRUE), 2)`  $s =$ `r round(sd(dataset$statquiz, na.rm = TRUE), 2)`]{.fragment .fade-left}
+:::
+
+
+
+# Analysing the variables {transition=“zoom”}
+
+
+
+## Math pre-test
+
+::: {style="font-size: .6em;"}
+Self reported fear of mathematics and performance in the mathematics pre-test are negatively correlated\
+(**$r =$ `r round(cor(dataset$phobia, dataset$mathquiz, use = "complete.obs"), 2)`**)^[*Pearson's* $r$, calculated with $\frac{s_{xy}}{s_{x}s_{y}}$]
+:::
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+dataset |> 
+  ggplot(
+    aes(
+      x = phobia,
+      y = mathquiz
+    )
+  ) +
+  geom_jitter() +
+  geom_smooth(method = "lm", col = "red", se = FALSE) +
+  labs(
+    subtitle = "n = 100",
+    x = "Self-reported fear of mathematics (0-10)",
+    y = "Matemathics pre-test score (0-50)",
+    caption = "n = 100"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.caption = element_text(size = 15)
+  )
+```
+
+
+
+## Stat pre-test
+
+::: {style="font-size: .6em;"}
+Self reported fear of mathematics and performance in the statistics pre-test are negatively correlated\
+(**$r =$ `r round(cor(dataset$phobia, dataset$statquiz, use = "complete.obs"), 2)`**)^[*Pearson's* $r$, calculated with $\frac{s_{xy}}{s_{x}s_{y}}$]
+:::
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+dataset |> 
+  ggplot(
+    aes(
+      x = phobia,
+      y = statquiz
+    )
+  ) +
+  geom_jitter() +
+  geom_smooth(method = "lm", col = "red", se = FALSE) +
+  labs(
+    subtitle = "n = 100",
+    x = "Self-reported fear of mathematics (0-10)",
+    y = "Statistics pre-test score (0-50)",
+    caption = "n = 100"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.caption = element_text(size = 15)
+  )
+```
+
+
+
+## Summarizing the results
+
+::::::: columns
+::: {.column width="70%"}
+**Variable**\
+Self-reported fear of mathematics (0–10 scale)\
+Score on a [mathematics pre-test]{style="color: blue;"} (0-50 scale)\
+Score on a [statistics pre-test]{style="color: red;"} (0-10 scale)\
+:::
+
+::: {.column width="10%"}
+$\bar{x}$^[sample mean, calculated with $\frac{\sum_{i=1}^{n} x_i}{n}$]\
+`r round(mean(dataset$phobia), 2)`\
+`r round(sd(dataset$mathquiz, na.rm = TRUE), 2)`\
+`r round(sd(dataset$statquiz, na.rm = TRUE), 2)`\
+:::
+
+::: {.column width="10%"}
+$s$^[sample standard deviation, calculated with $\sqrt{s^{2}}$]\
+`r round(sd(dataset$phobia), 2)`\
+`r round(sd(dataset$mathquiz), 2)`\
+`r round(sd(dataset$statquiz), 2)`
+:::
+
+::: {.column width="10%"}
+$r$^[correlation with self-reported fear of mathematics, calculated using *Pearson's* $r$ ($\frac{s_{xy}}{s_{x}s_{y}}$)]\
+1\
+`r round(cor(dataset$phobia, dataset$mathquiz, use = "complete.obs"), 2)`\
+`r round(cor(dataset$phobia, dataset$statquiz, use = "complete.obs"), 2)`
+:::
+:::::::
+
+
+
+
+
+
+
+
